@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robi Razile D. Satera | Portfolio</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050505;
+      --bg-soft: #111111;
+      --text: #fdfdfd;
+      --accent: #d32f27;
+      --accent-soft: rgba(211, 47, 39, 0.15);
+      --border: rgba(255,255,255,0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.06), transparent 30%),
+                  linear-gradient(180deg, #020202 0%, #0c0c0c 100%);
+      color: var(--text);
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 12px 12px;
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .page {
+      width: min(1200px, 100% - 2rem);
+      margin: 0 auto;
+      padding: 1.5rem 0 3rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem 0;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      font-size: 0.98rem;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      position: relative;
+      padding: 0.1rem 0;
+      transition: color 200ms ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent);
+    }
+
+    nav a.active::after,
+    nav a:hover::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.28rem;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 999px;
+    }
+
+    .hero {
+      margin-top: 6rem;
+      padding: 2.5rem 0 1rem;
+      max-width: 760px;
+    }
+
+    .hero small {
+      display: inline-block;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero p {
+      max-width: 38rem;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.9);
+      margin-top: 1.5rem;
+    }
+
+    .hero .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2.25rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.7rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      border-color: rgba(255,255,255,0.14);
+      color: var(--text);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .section-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 5rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 1.75rem;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(8px);
+    }
+
+    #projectLabels .card {
+      min-height: 110px;
+      padding: 1.2rem;
+      justify-content: center;
+    }
+
+    #projectCards {
+      margin-top: 1rem;
+    }
+
+    .card h2 {
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
+      color: rgba(255,255,255,0.75);
+      line-height: 1.75;
+    }
+
+    .contact-section {
+      margin-top: 6rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      padding: 2rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      min-height: 440px;
+    }
+
+    .contact-info h2 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .contact-info p {
+      color: rgba(255,255,255,0.9);
+      line-height: 1.8;
+    }
+
+    .contact-info .contact-item {
+      color: rgba(255,255,255,0.9);
+      font-size: 1rem;
+      line-height: 1.85;
+    }
+
+    .contact-info a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 24px;
+      padding: 1.3rem 1.4rem;
+      background: rgba(255,255,255,0.16);
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .contact-form textarea {
+      min-height: 220px;
+      resize: vertical;
+    }
+
+    .contact-form button {
+      border: none;
+      border-radius: 999px;
+      padding: 1rem 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 180ms ease, background-color 180ms ease;
+    }
+
+    .contact-form button:hover {
+      transform: translateY(-1px);
+      background: #b92c26;
+    }
+
+    @media (max-width: 960px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100%, 100% - 1.5rem);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .hero {
+        margin-top: 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">Robi.Dev</div>
+      <nav>
+        <ul>
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Project</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="home" class="hero">
+      <small>Hi, I’m</small>
+      <h1>Robi Razile <span>D. Satera</span></h1>
+      <h2 style="font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 600; color: var(--accent); margin-top: 0.6rem;">Aspiring Full Stack Developer</h2>
+      <p>I create beautiful and functional websites, driven by a passion for turning ideas into seamless digital experiences through modern web technologies.</p>
+      <div class="actions">
+        <a href="#contact" class="btn btn-primary">Contact Me</a>
+        <a href="#projects" class="btn btn-secondary">View Projects</a>
+      </div>
+    </section>
+
+    <section id="about" style="margin-top: 6rem;">
+      <h1 style="font-size: clamp(2.4rem, 4vw, 3.75rem); margin-bottom: 2rem; text-align: center;">About Me</h1>
+      <div style="max-width: 900px; margin: 0 auto; color: rgba(255,255,255,0.9); line-height: 1.9; font-size: 1rem;">
+        <p>Hello, I’m Robi Razile D. Satera, a passionate full-stack developer with a love for creating seamless and engaging digital experiences. Ever since I discovered the power of code, I’ve been fascinated by the way technology can solve real-world problems and bring ideas to life.</p>
+        <p>From designing intuitive user interfaces to building robust backend systems, I strive to craft applications that are not only functional but also enjoyable for users. Every project I take on is an opportunity to challenge myself, learn new technologies, and push the boundaries of what’s possible in web development.</p>
+        <p>Beyond coding, I enjoy exploring emerging trends in technology, collaborating with fellow developers, and continuously honing my skills to stay ahead in this fast-paced industry. I take pride in my attention to detail, problem-solving mindset, and dedication to delivering high-quality work.</p>
+      </div>
+    </section>
+
+    <section id="projects" class="projects-section" style="margin-top: 6rem;">
+      <h1 style="font-size: clamp(2.4rem, 4vw, 3.75rem); margin-bottom: 2rem; text-align: center;">Featured Projects</h1>
+      <div class="section-grid" id="projectLabels"></div>
+      <div class="section-grid" id="projectCards" style="margin-top: 2rem;"></div>
+    </section>
+
+    <section id="skills" style="margin-top: 6rem;">
+      <h1 style="font-size: clamp(2.4rem, 4vw, 3.75rem); margin-bottom: 2rem; text-align: center;">Skills and Technologies</h1>
+      <div class="section-grid" id="skillsCards"></div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <h1 style="font-size: clamp(2.4rem, 4vw, 3.75rem); margin-bottom: 2rem; text-align: center;">Get In Touch</h1>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2>Let’s work together!</h2>
+          <p>I'm passionate about creating seamless digital experiences. Let’s connect and bring your ideas to life!</p>
+          <div class="contact-item"><a href="mailto:rlastguest91@gmail.com">rlastguest91@gmail.com</a></div>
+          <div class="contact-item">+639289371084</div>
+          <div class="contact-item">Philippines, Cebu City, Balamban</div>
+        </div>
+        <form class="contact-form" action="#" method="post">
+          <input type="text" name="name" placeholder="Name" aria-label="Name" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <input type="text" name="subject" placeholder="Subject" aria-label="Subject" required />
+          <textarea name="message" placeholder="Message" aria-label="Message" required></textarea>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </section>
+    <footer style="text-align: center; margin-top: 3rem; padding: 1.25rem 0; color: rgba(255,255,255,0.7); font-size: 0.95rem;">
+      © 2026 Robi.Dev. All rights reserved.
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
